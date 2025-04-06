@@ -1,6 +1,4 @@
-"use client"
-
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card"
 
 interface ResultsProps {
   finalAmount?: number
@@ -15,38 +13,38 @@ interface ResultsProps {
 
 export function Results({ finalAmount, monthlyAmount, payOffDate, message, disclaimer }: ResultsProps) {
   return (
-    <Card className="w-full max-w-lg mt-4">
+    <Card className="w-full mt-4">
       <CardHeader>
-        <CardTitle className="text-2xl text-center">Results</CardTitle>
+        <CardTitle className="text-xl text-center">Results</CardTitle>
       </CardHeader>
       <CardContent>
         {payOffDate ? (
           <div className="text-center space-y-2">
-            <p className="text-lg">You will pay off your loan in:</p>
-            <p className="text-2xl font-bold">
+            <p className="text-base">You will pay off your loan in:</p>
+            <p className="text-xl font-bold">
               {payOffDate.month}/{payOffDate.year}
             </p>
           </div>
         ) : (
           <div className="text-center space-y-2">
-            <p className="text-lg">{message}</p>
-            <p className="text-2xl font-bold">
+            <p className="text-base">{message}</p>
+            <p className="text-xl font-bold">
               ${finalAmount?.toLocaleString()}
             </p>
             {monthlyAmount !== undefined && (
               <>
-                <p className="text-lg mt-4">Monthly you need to save:</p>
-                <p className="text-2xl font-bold">
+                <p className="text-base mt-4">Monthly you need to save:</p>
+                <p className="text-xl font-bold">
                   ${monthlyAmount.toLocaleString()}
                 </p>
               </>
             )}
             {disclaimer && (
-              <p className="text-sm text-gray-500 mt-4">{disclaimer}</p>
+              <p className="text-xs text-gray-500 mt-4">{disclaimer}</p>
             )}
           </div>
         )}
       </CardContent>
     </Card>
   )
-} 
+}

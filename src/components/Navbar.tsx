@@ -1,48 +1,52 @@
+// components/Navbar.tsx
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { cn } from "../lib/utils"; // Adjust path if needed
+import { cn } from "../lib/utils";
 import { Calculator, Menu } from "lucide-react";
-import { Button } from "../components/ui/button"; // Adjust path
+import { Button } from "../components/ui/button";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "../components/ui/sheet"; // Adjust path
+} from "../components/ui/sheet";
+
+interface NavLinkItem {
+  to: string;
+  label: string;
+}
 
 export function Navbar() {
   const { pathname } = useLocation();
 
-  const links = [
+  const links: NavLinkItem[] = [
     { to: "/", label: "Retirement Calculator" },
     { to: "/need", label: "How Much Do I Need" },
     { to: "/loan", label: "Loan Calculator" },
   ];
 
   return (
-    <nav className="border-b bg-card">
+    <nav className="border-b bg-card fixed top-0 left-0 right-0 z-50">
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6">
         <div className="flex h-16 items-center justify-between">
-          {/* Logo and Brand */}
           <NavLink to="/" className="flex items-center space-x-3">
             <Calculator className="h-6 w-6 text-primary" />
             <span className="text-lg font-semibold">Finance Calculator</span>
           </NavLink>
 
-          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
             {links.map((link) => (
               <NavLink
                 key={link.to}
                 to={link.to}
-                className={({ isActive }) =>
+                className={({ isActive }: { isActive: boolean }) =>
                   cn(
                     "px-4 py-2 rounded-md text-sm font-medium transition-colors",
                     "hover:bg-accent hover:text-accent-foreground",
                     isActive
                       ? "bg-primary/10 text-primary"
-                      : "text-muted-foreground",
+                      : "text-muted-foreground"
                   )
                 }
               >
@@ -51,7 +55,6 @@ export function Navbar() {
             ))}
           </div>
 
-          {/* Mobile Menu Button */}
           <div className="md:hidden">
             <Sheet>
               <SheetTrigger asChild>
@@ -69,13 +72,13 @@ export function Navbar() {
                     <NavLink
                       key={link.to}
                       to={link.to}
-                      className={({ isActive }) =>
+                      className={({ isActive }: { isActive: boolean }) =>
                         cn(
                           "px-4 py-2 rounded-md text-sm font-medium transition-colors",
                           "hover:bg-accent hover:text-accent-foreground",
                           isActive
                             ? "bg-primary/10 text-primary"
-                            : "text-muted-foreground",
+                            : "text-muted-foreground"
                         )
                       }
                     >

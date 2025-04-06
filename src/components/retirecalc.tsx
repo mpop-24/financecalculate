@@ -1,17 +1,15 @@
-"use client"
-
 import * as React from "react"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../components/ui/card"
+import { Input } from "../components/ui/input"
+import { Button } from "../components/ui/button"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form"
+} from "../components/ui/select"
+import { Form, FormControl, FormField, FormItem, FormLabel } from "../components/ui/form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
@@ -25,7 +23,7 @@ const formSchema = z.object({
   contributionAmount: z.string(),
 })
 
-export default function RetirementCalculator() {
+export function RetirementCalculator() {
   const [result, setResult] = React.useState<number | null>(null)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -44,27 +42,23 @@ export default function RetirementCalculator() {
       const years = parseInt(values.yearsUntilRetirement)
       const contribution = parseInt(values.contributionAmount)
       
-      // Determine rate based on investor type
       let rate: number
       switch (values.investorType) {
         case "conservative":
-          rate = 5 // 5% return
+          rate = 5
           break
         case "moderate":
-          rate = 8 // 8% return
+          rate = 8
           break
         case "aggressive":
-          rate = 11 // 11% return
+          rate = 11
           break
       }
 
-      // Convert rate to decimal
       rate = rate / 100
 
-      // Determine contribution frequency multiplier
       const frequencyMultiplier = values.contributionFrequency === "weekly" ? 52 : 12
 
-      // Calculate final amount using the compound interest formula
       const final = (initial * (1 + (rate/frequencyMultiplier)) ** (years * frequencyMultiplier)) + 
                    (contribution * ((1 + (rate/frequencyMultiplier)) ** (years * frequencyMultiplier) - 1) / (rate/frequencyMultiplier))
 
@@ -79,15 +73,15 @@ export default function RetirementCalculator() {
   }
 
   return (
-    <div className="flex flex-col items-center min-h-screen p-4">
-      <Card className="w-full max-w-lg">
+    <div className="w-full py-6">
+      <Card className="w-full">
         <CardHeader>
           <CardTitle className="text-2xl text-center">Retirement Calculator</CardTitle>
+          <CardDescription className="text-center">Calculate how much you'll have for retirement</CardDescription>
         </CardHeader>
-        <CardDescription className="text-center">Calculate how much you'll have for retirement</CardDescription>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormField
                 control={form.control}
                 name="yearsUntilRetirement"
