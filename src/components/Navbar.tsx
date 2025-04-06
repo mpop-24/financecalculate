@@ -1,16 +1,15 @@
 // components/Navbar.tsx
-import React from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { cn } from "../lib/utils";
 import { Calculator, Menu } from "lucide-react";
-import { Button } from "../components/ui/button";
+import { Button } from "./ui/button";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "../components/ui/sheet";
+} from "./ui/sheet";
 
 interface NavLinkItem {
   to: string;
@@ -18,8 +17,6 @@ interface NavLinkItem {
 }
 
 export function Navbar() {
-  const { pathname } = useLocation();
-
   const links: NavLinkItem[] = [
     { to: "/", label: "Retirement Calculator" },
     { to: "/need", label: "How Much Do I Need" },
