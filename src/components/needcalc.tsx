@@ -77,9 +77,9 @@ export function NeedCalculator() {
                 name="spend"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>How much will you spend in retirement (Monthly)?</FormLabel>
+                    <FormLabel>How much will you spend yearly in retirement?</FormLabel>
                     <FormControl>
-                      <Input type="number" placeholder="Enter monthly spending" {...field} />
+                      <Input type="number" placeholder="Enter yearly spending" {...field} />
                     </FormControl>
                   </FormItem>
                 )}
