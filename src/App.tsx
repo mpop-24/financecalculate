@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "./components/Layout"; // Adjust the import path
@@ -17,7 +16,6 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
-=======
 // App.tsx
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
@@ -43,7 +41,6 @@ function App() {
         </main>
       </div>
     </Router>
->>>>>>> 0ef7d4409405913ba1364091d7344c4c961bc397
   );
 }
 
