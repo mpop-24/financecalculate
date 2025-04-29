@@ -2,8 +2,8 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "./components/Layout"; // Adjust the import path
 import RetirementCalculator from "./components/retirecalc";
-import HowMuchDoINeed from "./components/needcalc";
-import LoanCalculator from "./components/loancalc";
+import HowMuchDoINeed from "../src/components/needcalc";
+import LoanCalculator from "../src/components/loancalc";
 
 function App() {
   return (

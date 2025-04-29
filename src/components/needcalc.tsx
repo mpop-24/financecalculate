@@ -1,21 +1,36 @@
-import * as React from "react"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../components/ui/card"
-import { Input } from "../components/ui/input"
-import { Button } from "../components/ui/button"
-import { Form, FormControl, FormField, FormItem, FormLabel } from "../components/ui/form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
-import { Results } from "./Results"
+import * as React from "react";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "../components/ui/card";
+import { Input } from "../components/ui/input";
+import { Button } from "../components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "../components/ui/form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { Results } from "./Results";
 
 const formSchema = z.object({
   spend: z.string(),
   years: z.string(),
   saved: z.string(),
-})
+});
 
-export function NeedCalculator() {
-  const [result, setResult] = React.useState<{ finalAmount: number; monthlyAmount: number } | null>(null)
+export default function NeedCalculator() {
+  const [result, setResult] = React.useState<{
+    finalAmount: number;
+    monthlyAmount: number;
+  } | null>(null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -23,51 +38,55 @@ export function NeedCalculator() {
       saved: "",
       spend: "",
     },
-  })
+  });
 
   function calculateNeeded(values: z.infer<typeof formSchema>) {
     try {
-      const m = parseInt(values.spend)
-      const n = parseInt(values.years)
-      const p = parseInt(values.saved)
-      const i = 8/100
+      const m = parseInt(values.spend);
+      const n = parseInt(values.years);
+      const p = parseInt(values.saved);
+      const i = 8 / 100;
 
-      const final = m * 12.5
+      const final = m * 12.5;
 
-      const one = i/12
-      const two = 1 + one
-      const three = n * 12
-      const four = two ** three
-      const five = p * four
-      const six = final - five
-      const seven = six * one
-      const eight = four - 1
-      const nine = seven / eight
-      let R = nine
+      const one = i / 12;
+      const two = 1 + one;
+      const three = n * 12;
+      const four = two ** three;
+      const five = p * four;
+      const six = final - five;
+      const seven = six * one;
+      const eight = four - 1;
+      const nine = seven / eight;
+      let R = nine;
 
       if (R < 0) {
-        R = 0
+        R = 0;
       }
 
       setResult({
         finalAmount: final,
-        monthlyAmount: R
-      })
+        monthlyAmount: R,
+      });
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   }
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    calculateNeeded(values)
+    calculateNeeded(values);
   }
 
   return (
     <div className="w-full py-6">
       <Card className="w-full">
         <CardHeader>
-          <CardTitle className="text-2xl text-center">How Much Do I Need?</CardTitle>
-          <CardDescription className="text-center">Calculate how much you will need during retirement</CardDescription>
+          <CardTitle className="text-2xl text-center">
+            How Much Do I Need?
+          </CardTitle>
+          <CardDescription className="text-center">
+            Calculate how much you will need during retirement
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -77,9 +96,15 @@ export function NeedCalculator() {
                 name="spend"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>How much will you spend yearly in retirement?</FormLabel>
+                    <FormLabel>
+                      How much will you spend yearly in retirement?
+                    </FormLabel>
                     <FormControl>
-                      <Input type="number" placeholder="Enter yearly spending" {...field} />
+                      <Input
+                        type="number"
+                        placeholder="Enter yearly spending"
+                        {...field}
+                      />
                     </FormControl>
                   </FormItem>
                 )}
@@ -92,7 +117,11 @@ export function NeedCalculator() {
                   <FormItem>
                     <FormLabel>How many years until you retire?</FormLabel>
                     <FormControl>
-                      <Input type="number" placeholder="Enter years" {...field} />
+                      <Input
+                        type="number"
+                        placeholder="Enter years"
+                        {...field}
+                      />
                     </FormControl>
                   </FormItem>
                 )}
@@ -105,7 +134,11 @@ export function NeedCalculator() {
                   <FormItem>
                     <FormLabel>How much do you have saved so far?</FormLabel>
                     <FormControl>
-                      <Input type="number" placeholder="Enter current savings" {...field} />
+                      <Input
+                        type="number"
+                        placeholder="Enter current savings"
+                        {...field}
+                      />
                     </FormControl>
                   </FormItem>
                 )}
@@ -120,7 +153,7 @@ export function NeedCalculator() {
       </Card>
 
       {result !== null && (
-        <Results 
+        <Results
           finalAmount={result.finalAmount}
           monthlyAmount={result.monthlyAmount}
           message="If you invest in S&P 500, at retirement you will need:"
@@ -128,5 +161,5 @@ export function NeedCalculator() {
         />
       )}
     </div>
-  )
+  );
 }
