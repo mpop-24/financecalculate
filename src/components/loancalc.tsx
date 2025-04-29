@@ -1,17 +1,8 @@
-"use client"
-
 import * as React from "react"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../components/ui/card"
+import { Input } from "../components/ui/input"
+import { Button } from "../components/ui/button"
+import { Form, FormControl, FormField, FormItem, FormLabel } from "../components/ui/form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
@@ -23,7 +14,7 @@ const formSchema = z.object({
   interest: z.string(),
 })
 
-export default function LoanCalculator() {
+export function LoanCalculator() {
   const [result, setResult] = React.useState<{ payOffDate: { month: number; year: number } } | null>(null)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -49,15 +40,13 @@ export default function LoanCalculator() {
 
   function calculateLoan(values: z.infer<typeof formSchema>) {
     try {
-      const m = parseInt(values.payment) // Monthly payment
-      const R = parseFloat(values.interest) // Interest rate
-      const p = parseInt(values.loanBalance) // Principal
-      const r = (R / 12) / 100 // Monthly interest rate
+      const m = parseInt(values.payment)
+      const R = parseFloat(values.interest)
+      const p = parseInt(values.loanBalance)
+      const r = (R / 12) / 100
       
-      // Calculate number of months to pay off
       let n = Math.log(m / (m - p * r)) / Math.log(1 + r)
       
-      // Get the future date
       const futureDate = getMonthAndYear(n)
       
       setResult({
@@ -73,15 +62,15 @@ export default function LoanCalculator() {
   }
 
   return (
-    <div className="flex flex-col items-center min-h-screen p-4">
-      <Card className="w-full max-w-lg">
+    <div className="w-full py-6">
+      <Card className="w-full">
         <CardHeader>
           <CardTitle className="text-2xl text-center">Loan Calculator</CardTitle>
           <CardDescription className="text-center">Calculate when you will pay off your loan</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormField
                 control={form.control}
                 name="loanBalance"
@@ -94,6 +83,7 @@ export default function LoanCalculator() {
                   </FormItem>
                 )}
               />
+
               <FormField
                 control={form.control}
                 name="payment"
@@ -130,7 +120,7 @@ export default function LoanCalculator() {
 
       {result !== null && (
         <Results 
-          finalAmount={0} // Not used for loan calculator
+          finalAmount={0}
           payOffDate={result.payOffDate}
         />
       )}

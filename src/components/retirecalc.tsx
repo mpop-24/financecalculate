@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use client";
 
 import * as React from "react";
@@ -10,12 +11,19 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+=======
+import * as React from "react"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../components/ui/card"
+import { Input } from "../components/ui/input"
+import { Button } from "../components/ui/button"
+>>>>>>> 0ef7d4409405913ba1364091d7344c4c961bc397
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
+<<<<<<< HEAD
 } from "@/components/ui/select";
 import {
   Form,
@@ -28,6 +36,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Results } from "./Results";
+=======
+} from "../components/ui/select"
+import { Form, FormControl, FormField, FormItem, FormLabel } from "../components/ui/form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
+import { Results } from "./Results"
+>>>>>>> 0ef7d4409405913ba1364091d7344c4c961bc397
 
 const formSchema = z.object({
   yearsUntilRetirement: z.string(),
@@ -37,8 +53,13 @@ const formSchema = z.object({
   contributionAmount: z.string(),
 });
 
+<<<<<<< HEAD
 export default function RetirementCalculator() {
   const [result, setResult] = React.useState<number | null>(null);
+=======
+export function RetirementCalculator() {
+  const [result, setResult] = React.useState<number | null>(null)
+>>>>>>> 0ef7d4409405913ba1364091d7344c4c961bc397
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -52,6 +73,7 @@ export default function RetirementCalculator() {
 
   function calculateGrowth(values: z.infer<typeof formSchema>) {
     try {
+<<<<<<< HEAD
       const initial = parseInt(values.currentSavings);
       const years = parseInt(values.yearsUntilRetirement);
       const contribution = parseInt(values.contributionAmount);
@@ -85,6 +107,31 @@ export default function RetirementCalculator() {
           ((1 + rate / frequencyMultiplier) ** (years * frequencyMultiplier) -
             1)) /
           (rate / frequencyMultiplier);
+=======
+      const initial = parseInt(values.currentSavings)
+      const years = parseInt(values.yearsUntilRetirement)
+      const contribution = parseInt(values.contributionAmount)
+      
+      let rate: number
+      switch (values.investorType) {
+        case "conservative":
+          rate = 5
+          break
+        case "moderate":
+          rate = 8
+          break
+        case "aggressive":
+          rate = 11
+          break
+      }
+
+      rate = rate / 100
+
+      const frequencyMultiplier = values.contributionFrequency === "weekly" ? 52 : 12
+
+      const final = (initial * (1 + (rate/frequencyMultiplier)) ** (years * frequencyMultiplier)) + 
+                   (contribution * ((1 + (rate/frequencyMultiplier)) ** (years * frequencyMultiplier) - 1) / (rate/frequencyMultiplier))
+>>>>>>> 0ef7d4409405913ba1364091d7344c4c961bc397
 
       setResult(final);
     } catch (error) {
@@ -97,9 +144,10 @@ export default function RetirementCalculator() {
   }
 
   return (
-    <div className="flex flex-col items-center min-h-screen p-4">
-      <Card className="w-full max-w-lg">
+    <div className="w-full py-6">
+      <Card className="w-full">
         <CardHeader>
+<<<<<<< HEAD
           <CardTitle className="text-2xl text-center">
             Retirement Calculator
           </CardTitle>
@@ -107,9 +155,14 @@ export default function RetirementCalculator() {
         <CardDescription className="text-center">
           Calculate how much you'll have for retirement
         </CardDescription>
+=======
+          <CardTitle className="text-2xl text-center">Retirement Calculator</CardTitle>
+          <CardDescription className="text-center">Calculate how much you'll have for retirement</CardDescription>
+        </CardHeader>
+>>>>>>> 0ef7d4409405913ba1364091d7344c4c961bc397
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormField
                 control={form.control}
                 name="yearsUntilRetirement"
