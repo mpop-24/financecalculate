@@ -10,10 +10,6 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import * as React from "react"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../components/ui/card"
-import { Input } from "../components/ui/input"
-import { Button } from "../components/ui/button"
 import {
   Select,
   SelectContent,
@@ -32,12 +28,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Results } from "./Results";
-} from "../components/ui/select"
-import { Form, FormControl, FormField, FormItem, FormLabel } from "../components/ui/form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
-import { Results } from "./Results"
 
 const formSchema = z.object({
   yearsUntilRetirement: z.string(),
@@ -49,8 +39,7 @@ const formSchema = z.object({
 
 export default function RetirementCalculator() {
   const [result, setResult] = React.useState<number | null>(null);
-export function RetirementCalculator() {
-  const [result, setResult] = React.useState<number | null>(null)
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -68,28 +57,24 @@ export function RetirementCalculator() {
       const years = parseInt(values.yearsUntilRetirement);
       const contribution = parseInt(values.contributionAmount);
 
-      // Determine rate based on investor type
       let rate: number;
       switch (values.investorType) {
         case "conservative":
-          rate = 5; // 5% return
+          rate = 5;
           break;
         case "moderate":
-          rate = 8; // 8% return
+          rate = 8;
           break;
         case "aggressive":
-          rate = 11; // 11% return
+          rate = 11;
           break;
       }
 
-      // Convert rate to decimal
       rate = rate / 100;
 
-      // Determine contribution frequency multiplier
       const frequencyMultiplier =
         values.contributionFrequency === "weekly" ? 52 : 12;
 
-      // Calculate final amount using the compound interest formula
       const final =
         initial *
           (1 + rate / frequencyMultiplier) ** (years * frequencyMultiplier) +
@@ -97,29 +82,6 @@ export function RetirementCalculator() {
           ((1 + rate / frequencyMultiplier) ** (years * frequencyMultiplier) -
             1)) /
           (rate / frequencyMultiplier);
-      const initial = parseInt(values.currentSavings)
-      const years = parseInt(values.yearsUntilRetirement)
-      const contribution = parseInt(values.contributionAmount)
-
-      let rate: number
-      switch (values.investorType) {
-        case "conservative":
-          rate = 5
-          break
-        case "moderate":
-          rate = 8
-          break
-        case "aggressive":
-          rate = 11
-          break
-      }
-
-      rate = rate / 100
-
-      const frequencyMultiplier = values.contributionFrequency === "weekly" ? 52 : 12
-
-      const final = (initial * (1 + (rate/frequencyMultiplier)) ** (years * frequencyMultiplier)) +
-                   (contribution * ((1 + (rate/frequencyMultiplier)) ** (years * frequencyMultiplier) - 1) / (rate/frequencyMultiplier))
 
       setResult(final);
     } catch (error) {
@@ -138,12 +100,9 @@ export function RetirementCalculator() {
           <CardTitle className="text-2xl text-center">
             Retirement Calculator
           </CardTitle>
-        </CardHeader>
-        <CardDescription className="text-center">
-          Calculate how much you'll have for retirement
-        </CardDescription>
-          <CardTitle className="text-2xl text-center">Retirement Calculator</CardTitle>
-          <CardDescription className="text-center">Calculate how much you'll have for retirement</CardDescription>
+          <CardDescription className="text-center">
+            Calculate how much you'll have for retirement
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -199,13 +158,11 @@ export function RetirementCalculator() {
                       </FormControl>
                       <SelectContent>
                         <SelectItem value="conservative">
-                          Conservative (5% return)
+                          Conservative (5%)
                         </SelectItem>
-                        <SelectItem value="moderate">
-                          Moderate (8% return)
-                        </SelectItem>
+                        <SelectItem value="moderate">Moderate (8%)</SelectItem>
                         <SelectItem value="aggressive">
-                          Aggressive (11% return)
+                          Aggressive (11%)
                         </SelectItem>
                       </SelectContent>
                     </Select>
@@ -265,7 +222,7 @@ export function RetirementCalculator() {
       {result !== null && (
         <Results
           finalAmount={result}
-          disclaimer="*Disclaimer: This value is an estimate based on the average return rate you selected. Actual returns, and the amount you have at retirement, may vary."
+          disclaimer="*Disclaimer: This value is an estimate based on the average return rate you selected. Actual returns may vary."
         />
       )}
     </div>
