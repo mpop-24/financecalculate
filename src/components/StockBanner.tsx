@@ -50,7 +50,7 @@ const StockBanner: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-wrap justify-center gap-4 p-4 bg-gray-100">
+    <div className="flex flex-wrap justify-center gap-4 p-4 bg-gray-100 mt-[60px]">
       {prices.map((item) => (
         <div
           key={item.ticker}
