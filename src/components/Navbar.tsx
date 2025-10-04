@@ -21,6 +21,7 @@ export function Navbar() {
     { to: "/", label: "Retirement Calculator" },
     { to: "/need", label: "How Much Do I Need" },
     { to: "/loan", label: "Loan Calculator" },
+    { to: "/news", label: "News" },
   ];
 
   return (
@@ -32,6 +33,7 @@ export function Navbar() {
             <span className="text-lg font-semibold">Finance Calculator</span>
           </NavLink>
 
+          {/* Desktop Links */}
           <div className="hidden md:flex items-center space-x-1">
             {links.map((link) => (
               <NavLink
@@ -43,7 +45,7 @@ export function Navbar() {
                     "hover:bg-accent hover:text-accent-foreground",
                     isActive
                       ? "bg-primary/10 text-primary"
-                      : "text-muted-foreground"
+                      : "text-muted-foreground",
                   )
                 }
               >
@@ -52,18 +54,26 @@ export function Navbar() {
             ))}
           </div>
 
+          {/* Mobile Menu */}
           <div className="md:hidden">
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon">
-                  <Menu className="h-6 w-6" />
+                  <Menu className="h-6 w-6 text-gray-900" />
                   <span className="sr-only">Toggle menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[300px]">
+
+              <SheetContent
+                side="right"
+                className="w-[300px] bg-white text-gray-900 !dark:bg-white !dark:text-gray-900 shadow-lg"
+              >
                 <SheetHeader>
-                  <SheetTitle>Menu</SheetTitle>
+                  <SheetTitle className="text-gray-900 !dark:text-gray-900">
+                    Menu
+                  </SheetTitle>
                 </SheetHeader>
+
                 <div className="flex flex-col space-y-4 mt-4">
                   {links.map((link) => (
                     <NavLink
@@ -75,7 +85,7 @@ export function Navbar() {
                           "hover:bg-accent hover:text-accent-foreground",
                           isActive
                             ? "bg-primary/10 text-primary"
-                            : "text-muted-foreground"
+                            : "text-gray-700 hover:text-gray-900",
                         )
                       }
                     >

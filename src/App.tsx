@@ -3,6 +3,7 @@ import { Layout } from "./components/Layout"; // Adjust the import path
 import RetirementCalculator from "./components/retirecalc";
 import HowMuchDoINeed from "../src/components/needcalc";
 import LoanCalculator from "../src/components/loancalc";
+import NewsPage from "../src/components/news";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <Route index element={<RetirementCalculator />} />
           <Route path="need" element={<HowMuchDoINeed />} />
           <Route path="loan" element={<LoanCalculator />} />
+          <Route path="news" element={<NewsPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

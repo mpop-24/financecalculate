@@ -76,8 +76,8 @@ export default function LoanCalculator() {
   }
 
   return (
-    <div className="w-full py-6">
-      <Card className="w-full">
+    <div className="w-full flex flex-col items-center py-6 space-y-6">
+      <Card className="w-full max-w-screen-md">
         <CardHeader>
           <CardTitle className="text-2xl text-center">
             Loan Calculator
