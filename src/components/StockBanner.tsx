@@ -68,9 +68,12 @@ const StockBanner: React.FC = () => {
   return (
     <div className="flex flex-wrap justify-center gap-4 p-4 bg-gray-100 mt-[60px]">
       {prices.map((item) => (
-        <div
+        <a
           key={item.ticker}
-          className="flex items-center p-3 bg-white rounded shadow-md min-w-[150px]"
+          href={`https://finance.yahoo.com/quote/${encodeURIComponent(item.ticker)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center p-3 bg-white rounded shadow-md min-w-[150px] hover:bg-gray-50 transition"
         >
           <span className="font-bold mr-2">{item.ticker}</span>
           <span className="mr-2">${item.current_price.toFixed(2)}</span>
@@ -105,7 +108,7 @@ const StockBanner: React.FC = () => {
               {item.percentage_change.toFixed(2)}%
             </span>
           )}
-        </div>
+        </a>
       ))}
     </div>
   );
